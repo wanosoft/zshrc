@@ -1,27 +1,36 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Flutter bin to your PATH
-export PATH="$PATH:$HOME/Library/flutter/bin"
+# Dart to ZSH
+export PATH="$PATH:"~/Library/flutter/bin/cache/dart-sdk/bin
 
-# Laravel bin to my PATH
-export PATH="$PATH:$HOME/.composer/vendor/bin"
+# Cordova required environment variables
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+# Android SDK (Cordova required)
+alias ANDROID_SDK_ROOT="~/Library/Android/sdk"
+
+# Flutter to ZSH
+export PATH="$PATH:"~/Library/flutter/bin
+
+# ADB Tool Alias
+alias adb="~/Library/Android/sdk/platform-tools/./adb"
+
+# Dart SDK Alias
+alias dart="~/Library/flutter/bin/cache/dart-sdk/bin/./dart"
+
+# Android Command Line Tools
+export PATH="$PATH:"~/Library/Android/sdk/tools/
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/wanosoft/.oh-my-zsh"
-
-# Custom vars
-export PASS="1402"
+export ZSH="/Users/redgps/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
 
-# Font mode for powerlevel9k
-POWERLEVEL9K_MODE="nerdfont-complete"
-
-# Current theme
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # ################ CUSTOM THEME ###############
@@ -75,7 +84,7 @@ POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='green'
 POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND='white'
 POWERLEVEL9K_BATTERY_VERBOSE=true
 
-# User with skull
+# User with horse
 user_with_horse() {
     echo -n "\ue25f $(whoami)"
 }
@@ -84,7 +93,11 @@ user_with_taco(){
     echo -n "\ue219 $(whoami)"
 }
 
-POWERLEVEL9K_CUSTOM_USER="user_with_horse"
+user_with_gps(){
+    echo -n "\ue248 $(whoami)"
+}
+
+POWERLEVEL9K_CUSTOM_USER="user_with_gps"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
@@ -93,8 +106,13 @@ ENABLE_CORRECTION="true"
 HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins to load
-plugins=(git
-        virtualenv)
+plugins=(
+  git
+  virtualenv
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+)
+
 source $ZSH/oh-my-zsh.sh
 
 # Prompt elements
@@ -118,8 +136,14 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs battery)
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -154,10 +178,9 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs battery)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
 
@@ -176,9 +199,6 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -187,5 +207,10 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="/usr/local/opt/php@7.2/bin:$PATH"
-export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+
+# lazygit function
+lazygit() {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
